@@ -34,3 +34,10 @@ class Sample:
             return "Sample must be \'Processing\' to add readings"
         sample.__Readings.append(reading) #Add the reading to the sample's readings list
         return "Reading added successfully"
+    def getStatistics(sample):
+        if sample.__Status!="Completed": #Sample status must be 'Completed' to be able to get statistics
+            return "Sample must be \'Completed\' to get statistics"
+        mean=sum(sample.__Readings)/len(sample.__Readings) #Calculate the mean of the readings
+        minimum=min(sample.__Readings) #Find the minimum
+        maximum=max(sample.__Readings) #Find the maximum
+        return f"Mean: {mean:.2f}, Min: {minimum}, Max: {maximum}"

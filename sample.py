@@ -28,3 +28,9 @@ class Sample:
         return "Invalid changing of status"
     def __str__(sample):
         return f"ID: {sample.__ID}, Type: {sample.__Type}, Status: {sample.__Status}, Readings: {sample.__Readings}"
+    
+    def addReading(sample, reading):
+        if sample.__Status!= "Processing": #Sample status must be 'Processing' to be able to add reading
+            return "Sample must be \'Processing\' to add readings"
+        sample.__Readings.append(reading) #Add the reading to the sample's readings list
+        return "Reading added successfully"

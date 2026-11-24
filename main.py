@@ -9,7 +9,8 @@ def main():
         print("\n1. Register sample")
         print("2. Change sample status")
         print("3. View samples")
-        print("4. Exit")
+        print("4. Add reading")
+        print("5. Exit")
 
         choice=input("Enter your choice: ").strip()
 
@@ -50,6 +51,17 @@ def main():
                         print(sample)
 
             case "4":
+                ID=input("Enter sample ID: ").strip().lower()
+                if not register.sampleExists(ID):
+                    print("Sample not found")
+                    continue
+                try:
+                    reading=float(input("Enter reading: "))
+                    print(register.add_Reading(ID,reading))
+                except ValueError:
+                    print("Invalid reading")
+
+            case "5":
                 print("Goodbye")
                 break
 

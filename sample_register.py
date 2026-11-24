@@ -32,3 +32,9 @@ class SampleRegister:
             return "Sample not found"
         sample=register.samples[ID]
         return sample.setStatus(newStatus)
+    
+    def add_Reading(register,ID,reading):
+        if not register.sampleExists(ID): #Check if the sample exists
+            return "Sample not found"
+        sample=register.samples[ID] #Gets the Sample object from the dictionary using its ID which is also the key
+        return sample.addReading(reading) #Calls the 'addReading' method in the Sample class and returns the message received from that method                                    

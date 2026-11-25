@@ -61,3 +61,9 @@ class SampleRegister:
             return error
         sample=register.samples[ID]
         return sample.countOutOfRange(lower, upper)
+    def longest_out_of_range(register, ID, lower, upper):
+        error=register.validateID(ID)
+        if error:
+            return error
+        sample=register.samples[ID]
+        return sample.longestOutOfRange(lower, upper)

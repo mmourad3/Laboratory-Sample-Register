@@ -42,10 +42,25 @@ class Sample:
         maximum=max(sample.__Readings) #Find the maximum
         return f"Mean: {mean:.2f}, Min: {minimum}, Max: {maximum}"
     def countOutOfRange(sample,lower,upper):
-        if lower>upper:
-            return "Lower limit cannot be greater than upper limit"
         count=0
         for reading in sample.__Readings: #loop through the readings and count how many are out of range
             if reading<lower or reading>upper:
                 count+=1
         return count
+    def longestOutOfRange(sample, lower, upper):
+        current=0
+        longest=0
+        for reading in sample.__Readings:
+            if reading<lower or reading>upper:
+                current+=1
+            else:
+                if longest<=current:
+                    longest=current
+                current=0
+        if longest<=current:
+            longest=current
+        return longest
+    def validateLimits(sample,lower,upper): #Check if the lower and upper limits are valid
+            if lower>upper:
+                return "Lower limit cannot be greater than upper limit"
+            return None #no error so the limits are valid

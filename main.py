@@ -86,11 +86,14 @@ def main():
                 try:
                     lower=float(input("Enter lower limit: "))
                     upper=float(input("Enter upper limit: "))
+                    error=sample.validateLimits(lower,upper) #validate the limits before counting
+                    if error:
+                        print(error)
+                        continue
                     res=register.count_out_of_range(ID, lower, upper)
-                    if isinstance(res, str): #Check if the result is an error message
-                        print(res)
-                    else:
-                        print(f'Number of readings out of range: {res}')
+                    streak=register.longest_out_of_range(ID, lower, upper)
+                    print(f'Number of readings out of range: {res}')
+                    print(f'Longest out of range readings streak: {streak}')
                 except ValueError:
                     print("Invalid limit values")
             case "7":

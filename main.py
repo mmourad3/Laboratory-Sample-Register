@@ -9,25 +9,32 @@ def main():
         print("\n1. Register sample")
         print("2. Change sample status")
         print("3. View samples")
-        print("4. Exit")
+        print("4. Add reading")
+        print("5. View statistics")
+        print("6. Exit")
 
         choice=input("Enter your choice: ").strip()
 
         match choice:
             case "1":
                 ID=input("Enter sample ID: ").strip().lower()
+                error=register.validateID(ID,False)
+                if error:
+                    print(error)
+                    continue
                 Type=input("Enter sample type: ").strip().lower()
-
-                if ID=="":
-                    print("ID cannot be empty")
-                elif Type=="":
+                if Type=="":
                     print("Type cannot be empty")
-                else:
-                    sample=Sample(ID,Type)
-                    print(register.registerSample(sample))
+                    continue
+                sample=Sample(ID,Type)
+                print(register.registerSample(sample))
 
             case "2":
                 ID=input("Enter sample ID: ").strip().lower()
+                error=register.validateID(ID)
+                if error:
+                    print(error)
+                    continue
                 newStatus=input("Enter new status (P/C): ").strip().lower()
 
                 match newStatus:
@@ -50,6 +57,22 @@ def main():
                         print(sample)
 
             case "4":
+                ID=input("Enter sample ID: ").strip().lower()
+                error=register.validateID(ID)
+                if error:
+                    print(error)
+                    continue
+                try:
+                    reading=float(input("Enter reading: "))
+                    print(register.add_Reading(ID,reading))
+                except ValueError:
+                    print("Invalid reading")
+
+            case "5":
+                ID=input("Enter sample ID: ").strip().lower()
+                print(register.get_Statistics(ID))
+
+            case "6":
                 print("Goodbye")
                 break
 

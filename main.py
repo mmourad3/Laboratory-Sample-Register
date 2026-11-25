@@ -19,7 +19,7 @@ def main():
         match choice:
             case "1":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID,False)
+                error=register.validateID(ID,False) #make sure the sample is not empty or its ID is already used before asking for the type
                 if error:
                     print(error)
                     continue
@@ -32,7 +32,7 @@ def main():
 
             case "2":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID)
+                error=register.validateID(ID) #make sure ID is valid before asking user for status
                 if error:
                     print(error)
                     continue
@@ -59,7 +59,7 @@ def main():
 
             case "4":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID)
+                error=register.validateID(ID) #make sure ID is valid before asking for reading
                 if error:
                     print(error)
                     continue
@@ -75,7 +75,7 @@ def main():
 
             case "6":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID)
+                error=register.validateID(ID) #make sure ID is valid before asking for limits
                 if error:
                     print(error)
                     continue
@@ -86,11 +86,12 @@ def main():
                 try:
                     lower=float(input("Enter lower limit: "))
                     upper=float(input("Enter upper limit: "))
+                    error=sample.validateLimits(lower,upper) #validate the limits before counting
+                    if error:
+                        print(error)
+                        continue
                     res=register.count_out_of_range(ID, lower, upper)
-                    if isinstance(res, str): #Check if the result is an error message
-                        print(res)
-                    else:
-                        print(f'Number of readings out of range: {res}')
+                    print(f'Number of readings out of range: {res}')
                 except ValueError:
                     print("Invalid limit values")
             case "7":

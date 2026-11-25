@@ -55,3 +55,9 @@ class SampleRegister:
             return error
         sample=register.samples[ID] #Gets the Sample object using its ID
         return sample.getStatistics()
+    def count_out_of_range(register, ID, lower, upper):
+        error=register.validateID(ID)
+        if error:
+            return error
+        sample=register.samples[ID]
+        return sample.countOutOfRange(lower, upper)

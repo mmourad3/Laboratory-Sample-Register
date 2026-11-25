@@ -11,7 +11,8 @@ def main():
         print("3. View samples")
         print("4. Add reading")
         print("5. View statistics")
-        print("6. Exit")
+        print("6. Count out of range readings")
+        print("7. Exit")
 
         choice=input("Enter your choice: ").strip()
 
@@ -73,6 +74,26 @@ def main():
                 print(register.get_Statistics(ID))
 
             case "6":
+                ID=input("Enter sample ID: ").strip().lower()
+                error=register.validateID(ID)
+                if error:
+                    print(error)
+                    continue
+                sample=register.samples[ID]
+                if not sample.getReadings(): #Check if the sample has any readings before asking for limits
+                    print("Sample has no readings")
+                    continue
+                try:
+                    lower=float(input("Enter lower limit: "))
+                    upper=float(input("Enter upper limit: "))
+                    res=register.count_out_of_range(ID, lower, upper)
+                    if isinstance(res, str): #Check if the result is an error message
+                        print(res)
+                    else:
+                        print(f'Number of readings out of range: {res}')
+                except ValueError:
+                    print("Invalid limit values")
+            case "7":
                 print("Goodbye")
                 break
 

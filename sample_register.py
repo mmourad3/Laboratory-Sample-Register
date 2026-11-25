@@ -59,5 +59,5 @@ class SampleRegister:
         error=register.validateID(ID)
         if error:
             return error
-        sample=register.samples[ID]
-        return sample.countOutOfRange(lower, upper)
+        sample=register.samples[ID] #get the Sample object using its ID
+        return sample.countOutOfRange(lower, upper) #count the readings using the validated limits

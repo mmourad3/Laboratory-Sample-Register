@@ -1,18 +1,28 @@
 from sample import Sample
 from sample_register import SampleRegister
 
-#For testing purposes
+def checkStatus(status): #Helper function to check and format the status input
+    match status.strip().lower():
+        case "r"|"received":
+            return "Received"
+        case "p"|"processing":
+            return "Processing"
+        case "c"|"completed":
+            return "Completed"
+        case _:
+            return None
 def main():
     register=SampleRegister()
 
     while True:
         print("\n1. Register sample")
         print("2. Change sample status")
-        print("3. View samples")
+        print("3. View all samples")
         print("4. Add reading")
         print("5. View statistics")
-        print("6. Count out of range readings")
-        print("7. Exit")
+        print("6. Count out of range readings and find longest streak")
+        print("7. View filtered samples")
+        print("8. Exit")
 
         choice=input("Enter your choice: ").strip()
 
@@ -36,17 +46,10 @@ def main():
                 if error:
                     print(error)
                     continue
-                newStatus=input("Enter new status (P/C): ").strip().lower()
-
-                match newStatus:
-                    case "p" | "processing":
-                        newStatus="Processing"
-                    case "c" | "completed":
-                        newStatus="Completed"
-                    case _:
-                        print("Invalid status")
-                        continue
-
+                newStatus=checkStatus(input("Enter new status (P/C): "))
+                if newStatus==None or newStatus=="Received": #cannot change status to Received
+                    print("Invalid status")
+                    continue
                 print(register.change_status(ID,newStatus))
 
             case "3":
@@ -86,7 +89,7 @@ def main():
                 try:
                     lower=float(input("Enter lower limit: "))
                     upper=float(input("Enter upper limit: "))
-                    error=sample.validateLimits(lower,upper) #validate the limits before counting
+                    error=sample.validateLimits(lower,upper) #validate the limits before counting and finding longest streak
                     if error:
                         print(error)
                         continue
@@ -96,7 +99,31 @@ def main():
                     print(f'Longest out of range readings streak: {streak}')
                 except ValueError:
                     print("Invalid limit values")
+                    
             case "7":
+                if not register.samples: #check if there are any registered samples before filtering
+                    print("No samples registered")
+                    continue
+                filterChoice=input("Enter filtering option (T/S): ").strip().lower()
+                match filterChoice:
+                    case "t"|"type":
+                        t=input("Enter type:").strip().lower()
+                        matches=register.filter("type", t) #Get the samples that match the type entered by the user
+                    case "s"|"status":
+                        status=checkStatus(input("Enter status (R/P/C):"))
+                        if status==None:
+                            print("Invalid status")
+                            continue
+                        matches=register.filter("status", status) #get the samples that match the status entered by the user
+                    case _:
+                        print("Invalid filtering option")
+                        continue
+                if not matches: #check if the returned list is empty
+                    print("No match found")
+                else:
+                    for sample in matches: #display each matching sample
+                        print(sample)
+            case "8":
                 print("Goodbye")
                 break
 

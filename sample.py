@@ -48,16 +48,16 @@ class Sample:
                 count+=1
         return count
     def longestOutOfRange(sample, lower, upper):
-        current=0
-        longest=0
-        for reading in sample.__Readings:
-            if reading<lower or reading>upper:
+        current=0 #current number of consecutve out of range readings
+        longest=0 #longest run found so far
+        for reading in sample.__Readings: 
+            if reading<lower or reading>upper: 
                 current+=1
-            else:
+            else: #we found a reading that is within the range
                 if longest<=current:
-                    longest=current
-                current=0
-        if longest<=current:
+                    longest=current #update the longest run if the current run is longer or equal to it
+                current=0 #reset the current run when we find a reading within the range
+        if longest<=current: #Checks the last run in case the last reading is out of the range
             longest=current
         return longest
     def validateLimits(sample,lower,upper): #Check if the lower and upper limits are valid

@@ -61,3 +61,16 @@ class SampleRegister:
             return error
         sample=register.samples[ID] #get the Sample object using its ID
         return sample.countOutOfRange(lower, upper) #count the readings using the validated limits
+    def longest_out_of_range(register, ID, lower, upper):
+        error=register.validateID(ID)
+        if error:
+            return error
+        sample=register.samples[ID] #get the Sample object using its ID
+        return sample.longestOutOfRange(lower, upper) #find the longest streak
+    def filter(register,filterChoice,choice):
+        matches=[] #list used to store the matching samples
+        for sample in register.samples.values():
+            #check if the sample matches the type or status entered by the user
+            if (filterChoice=="type" and choice==sample.getType()) or (filterChoice=="status" and choice==sample.getStatus()):
+                matches.append(sample)
+        return matches #returns the list of the matches found

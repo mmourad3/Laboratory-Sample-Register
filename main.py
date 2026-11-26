@@ -29,7 +29,7 @@ def main():
         match choice:
             case "1":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID,False)
+                error=register.validateID(ID,False) #make sure the sample is not empty or its ID is already used before asking for the type
                 if error:
                     print(error)
                     continue
@@ -42,7 +42,7 @@ def main():
 
             case "2":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID)
+                error=register.validateID(ID) #make sure ID is valid before asking user for status
                 if error:
                     print(error)
                     continue
@@ -62,7 +62,7 @@ def main():
 
             case "4":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID)
+                error=register.validateID(ID) #make sure ID is valid before asking for reading
                 if error:
                     print(error)
                     continue
@@ -78,7 +78,7 @@ def main():
 
             case "6":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID)
+                error=register.validateID(ID) #make sure ID is valid before asking for limits
                 if error:
                     print(error)
                     continue

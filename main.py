@@ -22,14 +22,15 @@ def main():
         print("5. View statistics")
         print("6. Count out of range readings and find longest streak")
         print("7. View filtered samples")
-        print("8. Exit")
+        print("8. Save")
+        print("9. Exit")
 
         choice=input("Enter your choice: ").strip()
 
         match choice:
             case "1":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID,False) #make sure the sample is not empty or its ID is already used before asking for the type
+                error=register.validateID(ID,False)
                 if error:
                     print(error)
                     continue
@@ -42,7 +43,7 @@ def main():
 
             case "2":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID) #make sure ID is valid before asking user for status
+                error=register.validateID(ID)
                 if error:
                     print(error)
                     continue
@@ -62,7 +63,7 @@ def main():
 
             case "4":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID) #make sure ID is valid before asking for reading
+                error=register.validateID(ID)
                 if error:
                     print(error)
                     continue
@@ -78,7 +79,7 @@ def main():
 
             case "6":
                 ID=input("Enter sample ID: ").strip().lower()
-                error=register.validateID(ID) #make sure ID is valid before asking for limits
+                error=register.validateID(ID)
                 if error:
                     print(error)
                     continue
@@ -124,6 +125,8 @@ def main():
                     for sample in matches: #display each matching sample
                         print(sample)
             case "8":
+                print(register.saveSamples())
+            case "9":
                 print("Goodbye")
                 break
 

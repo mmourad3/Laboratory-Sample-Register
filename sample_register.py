@@ -74,3 +74,19 @@ class SampleRegister:
             if (filterChoice=="type" and choice==sample.getType()) or (filterChoice=="status" and choice==sample.getStatus()):
                 matches.append(sample)
         return matches #returns the list of the matches found
+    
+    def saveSamples(register):
+        saved={} #store the data of each sample since json.dump() cannot take Sample objects
+        for ID, sample in register.samples.items():
+            #add each sample's data to the dictionary using its ID as the key
+            saved[ID]={
+                "ID":sample.getID(),
+                "Type":sample.getType(),
+                "Status":sample.getStatus(),
+                "Readings":sample.getReadings()
+            }
+        file=open(register.FileName,"w") #open the file in write mode
+        json.dump(saved,file,indent=4) #function in the json module used to write the saved dictionary to the file in JSON format with indentation to make it easier to read
+        file.close() #close the file
+        return "Samples saved successfully"
+        

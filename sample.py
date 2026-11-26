@@ -61,6 +61,6 @@ class Sample:
             longest=current
         return longest
     def validateLimits(sample,lower,upper): #Check if the lower and upper limits are valid
-            if lower>upper:
-                return "Lower limit cannot be greater than upper limit"
-            return None #no error so the limits are valid
+        if lower>upper:
+            return "Lower limit cannot be greater than upper limit"
+        return None #no error so the limits are valid

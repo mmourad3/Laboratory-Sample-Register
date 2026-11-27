@@ -3,22 +3,24 @@ from sample import Sample
 
 class SampleRegister:
     def __init__(register):
-        register.FileName ='samples.json'
+        register.__FileName ='samples.json'
         register.samples={}
-        register.loadSamples()
+        
     def loadSamples(register):
         try:
-            with open(register.FileName, "r") as suzieq:#suzieq is the file object used to read the saved samples
+            with open(register.__FileName, "r") as suzieq:#suzieq is the file object used to read the saved samples
                 content= suzieq.read().strip()
                 saved= json.loads(content) if content else {}
         except FileNotFoundError:
-            saved={}
+            return "No saved file found"
+        register.samples={} #empty the dictionary only after successfully reading the file
         for ID, attr in saved.items():#convert the saved data back to Sample objects
-            sample = Sample(attr['ID'],\
-                            attr['Type'],\
-                            attr['Status'],\
-                            attr['Readings'])
+            sample=Sample(attr['ID'],
+                          attr['Type'],
+                          attr['Status'],
+                          attr['Readings'])
             register.samples[ID]= sample
+        return "Samples loaded successfully"
     def sampleExists(register,ID):
         return ID in register.samples
     def validateID(register,ID,mustExist=True): #'mustExist' specifies whether the ID should already exist or not
@@ -74,3 +76,19 @@ class SampleRegister:
             if (filterChoice=="type" and choice==sample.getType()) or (filterChoice=="status" and choice==sample.getStatus()):
                 matches.append(sample)
         return matches #returns the list of the matches found
+    
+    def saveSamples(register):
+        saved={} #store the data of each sample since json.dump() cannot take Sample objects
+        for ID, sample in register.samples.items():
+            #add each sample's data to the dictionary using its ID as the key
+            saved[ID]={
+                "ID":sample.getID(),
+                "Type":sample.getType(),
+                "Status":sample.getStatus(),
+                "Readings":sample.getReadings()
+            }
+        file=open(register.__FileName,"w") #open the file in write mode
+        json.dump(saved,file,indent=4) #function in the json module used to write the saved dictionary to the file in JSON format with indentation to make it easier to read
+        file.close() #close the file
+        return "Samples saved successfully"
+        

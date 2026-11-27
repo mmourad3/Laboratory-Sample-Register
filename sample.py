@@ -25,7 +25,7 @@ class Sample:
                 return "At least three readings are required"
             sample.__Status = "Completed"
             return "Status successfully changed to \'Completed\'"
-        return "Invalid changing of status"
+        return "Invalid changing of status. Status order is R, P, C"
     def __str__(sample):
         return f"ID: {sample.__ID}, Type: {sample.__Type}, Status: {sample.__Status}, Readings: {sample.__Readings}"
     
@@ -61,6 +61,6 @@ class Sample:
             longest=current
         return longest
     def validateLimits(sample,lower,upper): #Check if the lower and upper limits are valid
-            if lower>upper:
-                return "Lower limit cannot be greater than upper limit"
-            return None #no error so the limits are valid
+        if lower>upper:
+            return "Lower limit cannot be greater than upper limit"
+        return None #no error so the limits are valid

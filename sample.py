@@ -25,7 +25,7 @@ class Sample:
                 return "At least three readings are required"
             sample.__Status = "Completed"
             return "Status successfully changed to \'Completed\'"
-        return "Invalid changing of status"
+        return "Invalid changing of status. Status order is R, P, C"
     def __str__(sample):
         return f"ID: {sample.__ID}, Type: {sample.__Type}, Status: {sample.__Status}, Readings: {sample.__Readings}"
     

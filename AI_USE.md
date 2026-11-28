@@ -30,3 +30,13 @@ Question asked: If write() only accepts strings then how can I write a dictionar
 Help received: ChatGPT explained that we can use 'json.dump()' or 'json.dumps()' since they can take dictionaries and other basic data types (but not objects of our own classes directly). It also explained the difference between them and how we use 'json.dump()' to write directly to the file, while 'json.dumps()' only converts the data into a JSON string. If we used 'json.dumps()' then we would have to use '.write()' after it. So using 'json.dump()' is simpler here. It also mentioned that we can use 'indent' with both functions to make our data more readable. 
 
 Work done ourselves: I added the Save method to the SampleRegister class and added the Save option to the menu
+
+2) Testing
+
+Tool used: ChatGPT
+
+Question asked: Writing everything for each test on seperate lines will make the file too long so is there a way to make it shorter while still being readable and if yes then how?
+
+Help received: ChatGPT explained how to make a table in a .md file using | and - and gave me an example.
+
+Work done ourselves: I used what I learned to set up the tables in the test record file
